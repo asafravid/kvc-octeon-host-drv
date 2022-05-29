@@ -8,9 +8,11 @@ ARG KMODVER
 
 # Grab the software from upstream
 # RUN git clone https://github.com/aravid-marvell/simple-kmod.git
-RUN git clone "ssh://aravid@sj1git1.cavium.com:29418/IP/SW/pcie_ep/pcie_ep_octeontx" && cd pcie_ep_octeontx/ && git checkout pcie_ep_octeontx-devel
+# RUN git clone "ssh://aravid@sj1git1.cavium.com:29418/IP/SW/pcie_ep/pcie_ep_octeontx" && cd pcie_ep_octeontx/ && git checkout pcie_ep_octeontx-devel
+COPY /var/home/core/pcie-ep-checks/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host .
 # WORKDIR simple-kmod
-WORKDIR pcie_ep_octeontx/host
+# WORKDIR pcie_ep_octeontx/host
+WORKDIR host
 
 # Expecting kernel version as an input to the build
 ARG KVER
