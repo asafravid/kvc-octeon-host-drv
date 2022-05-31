@@ -24,7 +24,7 @@ ARG KVER
 # Build the module
 # RUN make all       KVER=${KVER} KMODVER=${KMODVER}
 # RUN make install   KVER=${KVER} KMODVER=${KMODVER}
-RUN yum -y install bc
+RUN yum -y install git make sudo gcc bzip2 bc && yum clean all && rm -rf /var/cache/dnf
 RUN make
 RUN make COMPILEFOR=OCTEON_VF
 
