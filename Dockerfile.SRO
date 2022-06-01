@@ -19,6 +19,14 @@ RUN mkdir drivers && tar -xf pcie_ep_ref.tar.bz2 -C ./drivers/
 # RUN mv /lib/modules/4.18.0-305.34.2.el8_4.x86_64 /lib/modules/4.18.0-305.40.2.el8_4.x86_64
 
 RUN cd drivers/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host/ && make && make COMPILEFOR=OCTEON_VF
+
+# The relevant .kos shall be present in the driver-container pod (with this pushed image) in the following path:
+# sh-4.4# find . -name octeon*.ko
+# ./build/drivers/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host/drivers/legacy/modules/driver/bin/octeon_drv.ko
+# ./build/drivers/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host/drivers/legacy/modules/driver/bin/octeon_vf_drv.ko
+# ./build/drivers/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octeon_drv.ko
+# ./build/drivers/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octvf/octeon_vf_drv.ko
+
 ############################################
 
 # Expecting kernel version as an input to the build
@@ -46,3 +54,5 @@ RUN mkdir -p /etc/kvc/
 RUN make install
 
 RUN systemctl enable kmods-via-containers@simple-kmod
+
+
