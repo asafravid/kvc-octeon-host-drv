@@ -21,28 +21,19 @@ RUN mkdir drivers && tar -xf pcie_ep_ref.tar.bz2 -C ./drivers/
 RUN cd drivers/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host/ && make && make COMPILEFOR=OCTEON_VF
 ############################################
 
-
-# Grab the software from upstream
-# RUN git clone https://github.com/aravid-marvell/simple-kmod.git
-RUN git clone "https://aravid:34Helo%2134Helo%21@sj1git1.cavium.com/a/IP/SW/pcie_ep/pcie_ep_octeontx" && cd pcie_ep_octeontx/ && git checkout pcie_ep_octeontx-devel
-# COPY /var/home/core/pcie-ep-checks/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host /.
-# WORKDIR simple-kmod
-WORKDIR pcie_ep_octeontx/host
-# WORKDIR /host
-
 # Expecting kernel version as an input to the build
 ARG KVER
 
-# Note, your host must have access to repos where kernel developement
-# packages can be installed. If it doesn't the following steps will
-# fail
-
+########## Operational code now commented out ########################
+# Grab the software from upstream
+# RUN git clone "https://aravid:34Helo%2134Helo%21@sj1git1.cavium.com/a/IP/SW/pcie_ep/pcie_ep_octeontx" && cd pcie_ep_octeontx/ && git checkout pcie_ep_octeontx-devel
+# WORKDIR pcie_ep_octeontx/host
+#
 # Build the module
-# RUN make all       KVER=${KVER} KMODVER=${KMODVER}
-# RUN make install   KVER=${KVER} KMODVER=${KMODVER}
-RUN yum -y install git make sudo gcc bzip2 bc && yum clean all && rm -rf /var/cache/dnf
-RUN make
-RUN make COMPILEFOR=OCTEON_VF
+# RUN yum -y install git make sudo gcc bzip2 bc && yum clean all && rm -rf /var/cache/dnf
+# RUN make && make COMPILEFOR=OCTEON_VF
+#
+#######################################################################
 
 # Add the helper tools
 WORKDIR /root/kvc-simple-kmod
