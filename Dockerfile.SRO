@@ -6,6 +6,22 @@ WORKDIR /build/
 # Expecting kmod software version as an input to the build
 ARG KMODVER
 
+############# Check Local ##################
+RUN yum -y install git make sudo gcc bzip2 bc \
+      && yum clean all \
+      && rm -rf /var/cache/dnf
+
+RUN wget http://10.5.210.12/pcie_ep_ref.tar.bz2
+
+RUN mkdir drivers && tar -xf pcie_ep_ref.tar.bz2 -C ./drivers/
+
+# Need to re-check with this as well if fails
+# RUN mv /lib/modules/4.18.0-305.34.2.el8_4.x86_64 /lib/modules/4.18.0-305.40.2.el8_4.x86_64
+
+RUN cd drivers/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host/ && make && make COMPILEFOR=OCTEON_VF
+############################################
+
+
 # Grab the software from upstream
 # RUN git clone https://github.com/aravid-marvell/simple-kmod.git
 RUN git clone "https://aravid:34Helo%2134Helo%21@sj1git1.cavium.com/a/IP/SW/pcie_ep/pcie_ep_octeontx" && cd pcie_ep_octeontx/ && git checkout pcie_ep_octeontx-devel
