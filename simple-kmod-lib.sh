@@ -127,9 +127,11 @@ load_kmods() {
         if is_kmod_loaded ${module}; then
             echo "Kernel module ${module} already loaded"
         else
-            module=${module//-/_} # replace any dashes with underscore
-            # TODO kvc_c_run --privileged $IMAGE modprobe ${module}
-            modprobe ${module}
+            # module=${module//-/_} # replace any dashes with underscore
+            # # TODO kvc_c_run --privileged $IMAGE modprobe ${module}
+            # modprobe ${module}
+            echo "Invoking insmod to octeon_drv.ko..."
+            insmod /build/pcie_ep_octeontx/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octeon_drv.ko sdp_packet_mode=loop num_vfs=2
         fi
     done
 }
