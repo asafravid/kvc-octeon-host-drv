@@ -122,8 +122,8 @@ load_kmods() {
     echo "Loading kernel modules using the kernel module container..."
     
     echo "Invoking insmod to octeon_drv.ko..."
-    insmod /build/pcie_ep_octeontx/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octeon_drv.ko sdp_packet_mode=loop num_vfs=2
-    
+    insmod /build/drivers/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host/drivers/legacy/modules/driver/bin/octeon_drv.ko
+        
 #    for module in ${KMOD_NAMES}; do
 #
 #        kabi_check_module ${module}.ko
