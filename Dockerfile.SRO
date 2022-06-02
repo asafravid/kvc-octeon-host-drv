@@ -6,39 +6,16 @@ WORKDIR /build/
 # Expecting kmod software version as an input to the build
 ARG KMODVER
 
-############# Check Local ##################
-# RUN yum -y install git make sudo gcc bzip2 bc \
-#      && yum clean all \
-#      && rm -rf /var/cache/dnf
-#
-# RUN wget http://10.5.210.12/pcie_ep_ref.tar.bz2
-#
-# RUN mkdir drivers && tar -xf pcie_ep_ref.tar.bz2 -C ./drivers/
-#
-#
-# RUN cd drivers/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host/ && make && make COMPILEFOR=OCTEON_VF
-#
-# The relevant .kos shall be present in the driver-container pod (with this pushed image) in the following path:
-# sh-4.4# find . -name octeon*.ko
-# ./build/drivers/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host/drivers/legacy/modules/driver/bin/octeon_drv.ko
-# ./build/drivers/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host/drivers/legacy/modules/driver/bin/octeon_vf_drv.ko
-# ./build/drivers/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octeon_drv.ko
-# ./build/drivers/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octvf/octeon_vf_drv.ko
-############################################
-
 # Expecting kernel version as an input to the build
 ARG KVER
 
-########## Operational code now commented out ########################
 # Grab the software from upstream
 RUN git clone "https://aravid:34Helo%2134Helo%21@sj1git1.cavium.com/a/IP/SW/pcie_ep/pcie_ep_octeontx" && cd pcie_ep_octeontx/ && git checkout releasetag-pcie_ep_octeontx-sdk11-release-SDK11.22.05
 WORKDIR pcie_ep_octeontx/host
-#
+
 # Build the module
 RUN yum -y install git make sudo gcc bzip2 bc && yum clean all && rm -rf /var/cache/dnf
 RUN make && make COMPILEFOR=OCTEON_VF
-#
-#######################################################################
 
 # Add the helper tools
 WORKDIR /root/kvc-simple-kmod
@@ -51,5 +28,3 @@ RUN mkdir -p /etc/kvc/
 RUN make install
 
 RUN systemctl enable kmods-via-containers@simple-kmod
-
-
