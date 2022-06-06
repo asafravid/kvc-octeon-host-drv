@@ -18,11 +18,11 @@ RUN yum -y install git make sudo gcc bzip2 bc && yum clean all && rm -rf /var/ca
 RUN make && make COMPILEFOR=OCTEON_VF
 
 # Add the helper tools
-WORKDIR /root/kvc-simple-kmod
+WORKDIR /root/kvc-octeon-host-drv
 ADD Makefile .
-ADD simple-kmod-lib.sh .
-ADD simple-kmod-wrapper.sh .
-ADD simple-kmod.conf .
+ADD octeon-host-drv-lib.sh .
+ADD octeon-host-drv-wrapper.sh .
+ADD octeon-host-drv.conf .
 RUN mkdir -p /usr/lib/kvc/
 RUN mkdir -p /etc/kvc/
 RUN make install
