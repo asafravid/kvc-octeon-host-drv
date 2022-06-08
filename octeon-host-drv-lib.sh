@@ -123,7 +123,7 @@ load_kmods() {
     
     for module in ${KMOD_NAMES}; do
 
-        kabi_check_module ${module}.ko
+        # kabi_check_module ${module}.ko ---> seems redundant, is it really required?
 
         if is_kmod_loaded ${module}; then
             echo "Kernel module ${module} already loaded"
