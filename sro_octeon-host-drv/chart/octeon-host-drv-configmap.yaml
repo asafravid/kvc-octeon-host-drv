@@ -1,0 +1,25 @@
+apiVersion: sro.openshift.io/v1beta1
+kind: SpecialResource
+metadata:
+  name: octeon-host-drv
+spec:
+  #debug: true 
+  namespace: octeon-host-drv
+  chart:
+    name: octeon-host-drv
+    version: 0.0.1
+    repository:
+      name: example
+      url: cm://octeon-host-drv/octeon-host-drv-chart 
+  set:
+    kind: Values
+    apiVersion: sro.openshift.io/v1beta1
+    kmodNames: ["octeon-host-drv", "simple-procfs-kmod"]
+    buildArgs:
+    - name: "KMODVER"
+      value: "SRO"
+  driverContainer:
+    source:
+      git:
+        ref: "master"
+        uri: "https://github.com/asafravid/kvc-octeon-host-drv.git"

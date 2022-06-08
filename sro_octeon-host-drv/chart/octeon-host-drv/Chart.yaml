@@ -1,0 +1,7 @@
+apiVersion: v2
+name: octeon-host-drv
+description: Octeon Host Driver will deploy an octeon host drv driver-container
+icon: https://avatars.githubusercontent.com/u/55542927
+type: application
+version: 0.0.1
+appVersion: 1.0.0
