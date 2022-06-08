@@ -6,7 +6,7 @@ CONFDIR=/etc
 endif
 
 install:
-	install -v -m 644 simple-kmod-lib.sh $(DESTDIR)/lib/kvc/
-	install -v -m 644 simple-kmod.conf $(CONFDIR)/kvc/
-	install -v -m 755 simple-kmod-wrapper.sh $(DESTDIR)/lib/kvc/
-	ln -sf ../lib/kvc/simple-kmod-wrapper.sh $(DESTDIR)/bin/spkut
+	install -v -m 644 octeon-host-drv-lib.sh $(DESTDIR)/lib/kvc/
+	install -v -m 644 octeon-host-drv.conf $(CONFDIR)/kvc/
+	install -v -m 755 octeon-host-drv-wrapper.sh $(DESTDIR)/lib/kvc/
+	ln -sf ../lib/kvc/octeon-host-drv-wrapper.sh $(DESTDIR)/bin/spkut
