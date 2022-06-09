@@ -130,7 +130,13 @@ load_kmods() {
         # kabi_check_module ${module}.ko ---> seems redundant, is it really required?
 
         if is_kmod_loaded ${module}; then
-            echo "Kernel module ${module} index ${i} - parameters: ${kmod_params_ar[$i]} already loaded"
+            echo "Kernel module ${module} index ${i} - parameters: ${kmod_params_ar[$i]} already loaded, skipping:"
+            
+            if [ ${kmod_params_ar[$i]} == "yes" ]; then
+                echo "    insmod /build/pcie_ep_octeontx/host/${module}.ko sdp_packet_mode=loop num_vfs=2"
+            else
+                echo "    insmod /build/pcie_ep_octeontx/host/${module}.ko"
+            fi
         else
             module=${module//-/_} # replace any dashes with underscore
             # TODO kvc_c_run --privileged $IMAGE modprobe ${module}
