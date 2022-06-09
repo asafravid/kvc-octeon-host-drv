@@ -16,6 +16,10 @@ WORKDIR pcie_ep_octeontx/host
 # Build the module
 RUN yum -y install git make sudo gcc bzip2 bc && yum clean all && rm -rf /var/cache/dnf
 RUN make && make COMPILEFOR=OCTEON_VF
+RUN ln -nfs drivers/legacy/modules/driver/src/host/linux/kernel/drv/octeon_drv.ko octeon_drv.ko
+RUN ln -nfs drivers/legacy/modules/driver/src/host/linux/kernel/drv/octvf/octeon_vf_drv.ko octeon_vf_drv.ko
+RUN ln -nfs drivers/legacy/modules/driver/src/host/linux/kernel/drv/octnic/octnic.ko octnic.ko
+RUN ln -nfs drivers/legacy/modules/driver/src/host/linux/kernel/drv/octnic/oct_vf_nic.ko oct_vf_nic.ko
 
 # Add the helper tools
 WORKDIR /root/kvc-octeon-host-drv
