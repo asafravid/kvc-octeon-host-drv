@@ -121,12 +121,14 @@ build_kmods() {
 load_kmods() {
     echo "Loading kernel modules using the kernel module container..."
     
+    i=0
+    
     for module in ${KMOD_NAMES}; do
 
         # kabi_check_module ${module}.ko ---> seems redundant, is it really required?
 
         if is_kmod_loaded ${module}; then
-            echo "Kernel module ${module} already loaded"
+            echo "Kernel module ${module} index ${i} already loaded"
         else
             module=${module//-/_} # replace any dashes with underscore
             # TODO kvc_c_run --privileged $IMAGE modprobe ${module}
@@ -142,6 +144,8 @@ load_kmods() {
             insmod /build/pcie_ep_octeontx/host/octnic.ko
             insmod /build/pcie_ep_octeontx/host/oct_vf_nic.ko
         fi
+        
+        i=$((i+1))
     done
 }
 
