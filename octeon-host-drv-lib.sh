@@ -123,12 +123,14 @@ load_kmods() {
     
     i=0
     
+    kmod_params_ar=($KMOD_PARAMS)
+    
     for module in ${KMOD_NAMES}; do
 
         # kabi_check_module ${module}.ko ---> seems redundant, is it really required?
 
         if is_kmod_loaded ${module}; then
-            echo "Kernel module ${module} index ${i} already loaded"
+            echo "Kernel module ${module} index ${i} - parameters: ${kmod_params_ar[$i]} already loaded"
         else
             module=${module//-/_} # replace any dashes with underscore
             # TODO kvc_c_run --privileged $IMAGE modprobe ${module}
