@@ -1,4 +1,4 @@
-# kvc-simple-kmod
+# kvc-octeon-host-drv
 
 This is a [kmods-via-containers](https://github.com/kmods-via-containers/kmods-via-containers)
 implementation for the [simple-kmod](https://github.com/kmods-via-containers/simple-kmod)
