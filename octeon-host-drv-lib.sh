@@ -132,10 +132,15 @@ load_kmods() {
             # TODO kvc_c_run --privileged $IMAGE modprobe ${module}
             modprobe ${module}
             echo "Invoking insmod to octeon_drv.ko..."
-            insmod /build/pcie_ep_octeontx/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octeon_drv.ko sdp_packet_mode=loop num_vfs=2
-            insmod /build/pcie_ep_octeontx/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octvf/octeon_vf_drv.ko sdp_packet_mode=loop num_vfs=2
-            insmod /build/pcie_ep_octeontx/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octnic/octnic.ko
-            insmod /build/pcie_ep_octeontx/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octnic/oct_vf_nic.ko
+            # insmod /build/pcie_ep_octeontx/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octeon_drv.ko sdp_packet_mode=loop num_vfs=2
+            # insmod /build/pcie_ep_octeontx/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octvf/octeon_vf_drv.ko sdp_packet_mode=loop num_vfs=2
+            # insmod /build/pcie_ep_octeontx/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octnic/octnic.ko
+            # insmod /build/pcie_ep_octeontx/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octnic/oct_vf_nic.ko
+            # Use symbolic links instead:
+            insmod /build/pcie_ep_octeontx/host/octeon_drv.ko sdp_packet_mode=loop num_vfs=2
+            insmod /build/pcie_ep_octeontx/host/octeon_vf_drv.ko sdp_packet_mode=loop num_vfs=2
+            insmod /build/pcie_ep_octeontx/host/octnic.ko
+            insmod /build/pcie_ep_octeontx/host/oct_vf_nic.ko
         fi
     done
 }
