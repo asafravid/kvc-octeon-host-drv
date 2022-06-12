@@ -153,8 +153,8 @@ load_kmods() {
                         
             # Module by Module:
             if [ ${kmod_params_ar[$i]} == "yes" ]; then
-                # insmod /build/pcie_ep_octeontx/host/${module}.ko sdp_packet_mode=loop [num_vfs=2]
-                $(insmod /build/pcie_ep_octeontx/host/${module}.ko ${kmod_params_ar[$i]})
+                # insmod /build/pcie_ep_octeontx/host/${module}.ko sdp_packet_mode=loop num_vfs=2
+                $(insmod /build/pcie_ep_octeontx/host/${module}.ko sdp_packet_mode=loop)
             else
                 # insmod /build/pcie_ep_octeontx/host/${module}.ko
                 $(insmod /build/pcie_ep_octeontx/host/${module}.ko)
