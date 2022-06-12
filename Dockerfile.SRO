@@ -17,7 +17,7 @@ RUN git clone "https://aravid:34Helo%2134Helo%21@sj1git1.cavium.com/a/IP/SW/pcie
 WORKDIR pcie_ep_octeontx/host
 
 # Build the module
-RUN yum -y install git make sudo gcc bzip2 bc && yum clean all && rm -rf /var/cache/dnf
+RUN yum -y install git make sudo gcc bzip2 bc net-tools && yum clean all && rm -rf /var/cache/dnf
 RUN make && make COMPILEFOR=OCTEON_VF
 RUN ln -nfs drivers/legacy/modules/driver/src/host/linux/kernel/drv/octeon_drv.ko octeon_drv.ko
 RUN ln -nfs drivers/legacy/modules/driver/src/host/linux/kernel/drv/octvf/octeon_vf_drv.ko octeon_vf_drv.ko
