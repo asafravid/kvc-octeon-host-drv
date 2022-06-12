@@ -157,13 +157,27 @@ load_kmods() {
 
 unload_kmods() {
     echo "Unloading kernel modules..."
-    for module in ${KMOD_NAMES}; do
+    
+    i=0
+    
+    # TODO: Parameterise the PF BDF:
+    echo 0 > /sys/bus/pci/devices/0000\:61\:00.0/sriov_numvfs
+    for module in ${KMOD_UNLOAD_NAMES}; do
         if is_kmod_loaded ${module}; then
+            echo "Unloading Kernel module ${module} index ${i}"
             module=${module//-/_} # replace any dashes with underscore
+            
+            if [ ${i} == 2 ]; then
+                echo "Invoking ifconfig ens2f0 down prior to rmmod"
+                ifconfig ens2f0 down
+            fi
+            
             rmmod "${module}"
         else
             echo "Kernel module ${module} already unloaded"
         fi
+        
+        i=$((i+1))
     done
 }
 
