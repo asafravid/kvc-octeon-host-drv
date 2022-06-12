@@ -150,18 +150,15 @@ load_kmods() {
             #insmod /build/pcie_ep_octeontx/host/octeon_vf_drv.ko sdp_packet_mode=loop num_vfs=2
             #insmod /build/pcie_ep_octeontx/host/octnic.ko
             #insmod /build/pcie_ep_octeontx/host/oct_vf_nic.ko
-            
-            command_invoke=$(insmod /build/pcie_ep_octeontx/host/${module}.ko)
-            
+                        
             # Module by Module:
             if [ ${kmod_params_ar[$i]} == "yes" ]; then
                 # insmod /build/pcie_ep_octeontx/host/${module}.ko sdp_packet_mode=loop num_vfs=2
-                command_invoke=$(insmod /build/pcie_ep_octeontx/host/${module}.ko sdp_packet_mode=loop num_vfs=2)
-            # else
+                $(insmod /build/pcie_ep_octeontx/host/${module}.ko sdp_packet_mode=loop num_vfs=2)
+            else
                 # insmod /build/pcie_ep_octeontx/host/${module}.ko
+                $(insmod /build/pcie_ep_octeontx/host/${module}.ko)
             fi
-            
-            $command_invoke
         fi
         
         i=$((i+1))
