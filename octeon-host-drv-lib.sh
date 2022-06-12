@@ -139,8 +139,6 @@ load_kmods() {
             fi
         else
             module=${module//-/_} # replace any dashes with underscore
-            # TODO kvc_c_run --privileged $IMAGE modprobe ${module}
-            modprobe ${module}
             echo "Invoking insmod to module ${module} index ${i} - parameters: ${kmod_params_ar[$i]}"
             # insmod /build/pcie_ep_octeontx/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octeon_drv.ko sdp_packet_mode=loop num_vfs=2
             # insmod /build/pcie_ep_octeontx/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octvf/octeon_vf_drv.ko sdp_packet_mode=loop num_vfs=2
