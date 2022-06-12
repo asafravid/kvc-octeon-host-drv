@@ -140,25 +140,13 @@ load_kmods() {
         else
             module=${module//-/_} # replace any dashes with underscore
             echo "Invoking: insmod to module ${module} index ${i} - parameters: ${kmod_params_ar[$i]}"
-            # insmod /build/pcie_ep_octeontx/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octeon_drv.ko sdp_packet_mode=loop num_vfs=2
-            # insmod /build/pcie_ep_octeontx/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octvf/octeon_vf_drv.ko sdp_packet_mode=loop num_vfs=2
-            # insmod /build/pcie_ep_octeontx/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octnic/octnic.ko
-            # insmod /build/pcie_ep_octeontx/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octnic/oct_vf_nic.ko
-            
-            # Use symbolic links instead:
-            #insmod /build/pcie_ep_octeontx/host/octeon_drv.ko sdp_packet_mode=loop num_vfs=2
-            #insmod /build/pcie_ep_octeontx/host/octeon_vf_drv.ko sdp_packet_mode=loop num_vfs=2
-            #insmod /build/pcie_ep_octeontx/host/octnic.ko
-            #insmod /build/pcie_ep_octeontx/host/oct_vf_nic.ko
                         
             # Module by Module:
             if [ ${kmod_params_ar[$i]} == "yes" ]; then
                 echo "Now Invoking: insmod /build/pcie_ep_octeontx/host/${module}.ko sdp_packet_mode=loop"
-                # insmod /build/pcie_ep_octeontx/host/${module}.ko sdp_packet_mode=loop num_vfs=2
                 $(insmod /build/pcie_ep_octeontx/host/${module}.ko sdp_packet_mode=loop)
             else
                 echo "Now Invoking: insmod /build/pcie_ep_octeontx/host/${module}.ko"
-                # insmod /build/pcie_ep_octeontx/host/${module}.ko
                 $(insmod /build/pcie_ep_octeontx/host/${module}.ko)
             fi
         fi
