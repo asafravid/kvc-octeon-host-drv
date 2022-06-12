@@ -160,18 +160,17 @@ unload_kmods() {
     
     i=0
     
-    # TODO: Parameterise the PF BDF:
+    # TODO: Parameterise the PF BDF (or have the sriov operator perform this)
+    #       Additionally: The driver container pod itself cannot "see" the PF, 
+    #       so it won't be able to invoke the "ifconfig ens2f0 down" command.
+    #       So the sriov operator pod which did the original echo (for the VFs) 
+    #       will probably need to do it, and only then terminate the driver 
+    #       container pod (which will do the below rmmods in-order)
     echo 0 > /sys/bus/pci/devices/0000\:61\:00.0/sriov_numvfs
     for module in ${KMOD_UNLOAD_NAMES}; do
         if is_kmod_loaded ${module}; then
             echo "Unloading Kernel module ${module} index ${i}"
             module=${module//-/_} # replace any dashes with underscore
-            
-            if [ ${i} == 2 ]; then
-                echo "Invoking ifconfig ens2f0 down prior to rmmod"
-                ifconfig ens2f0 down
-            fi
-            
             rmmod "${module}"
         else
             echo "Kernel module ${module} already unloaded"
