@@ -3,12 +3,6 @@ ARG IMAGE=registry.access.redhat.com/ubi8/ubi
 FROM $IMAGE
 WORKDIR /build/
 
-# Expecting kmod software version as an input to the build
-ARG KMODVER
-
-# Expecting kernel version as an input to the build
-ARG KVER
-
 # Expecting path to pcie_ep tar bz2 from release/sources containing the drivers/host path structure
 ARG DRIVER_SOURCES_WGET_TAR_BZ2_PATH
 
@@ -20,7 +14,7 @@ RUN wget -O pcie_ep.tar.bz2 $DRIVER_SOURCES_WGET_TAR_BZ2_PATH
 RUN mkdir drivers && tar -xf pcie_ep.tar.bz2 -C ./drivers/
 RUN cd drivers/pcie_ep_octeontx-SDK-11.U.release/host/ && make && make COMPILEFOR=OCTEON_VF
 
-# Build the module
+# Create soft-links for the .kos
 RUN ln -nfs drivers/pcie_ep_octeontx-SDK-11.U.release/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octeon_drv.ko octeon_drv.ko
 RUN ln -nfs drivers/pcie_ep_octeontx-SDK-11.U.release/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octvf/octeon_vf_drv.ko octeon_vf_drv.ko
 RUN ln -nfs drivers/pcie_ep_octeontx-SDK-11.U.release/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octnic/octnic.ko octnic.ko
