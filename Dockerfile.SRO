@@ -21,13 +21,12 @@ RUN echo "DRIVER_SOURCES_WGET_TAR_BZ2_PATH: $DRIVER_SOURCES_WGET_TAR_BZ2_PATH"
 RUN wget -O pcie_ep.tar.bz2 $DRIVER_SOURCES_WGET_TAR_BZ2_PATH
 RUN mkdir drivers && tar -xf pcie_ep.tar.bz2 -C ./drivers/
 RUN cd drivers/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host/ && make && make COMPILEFOR=OCTEON_VF
-WORKDIR pcie_ep_octeontx/host
 
 # Build the module
-RUN ln -nfs drivers/legacy/modules/driver/src/host/linux/kernel/drv/octeon_drv.ko octeon_drv.ko
-RUN ln -nfs drivers/legacy/modules/driver/src/host/linux/kernel/drv/octvf/octeon_vf_drv.ko octeon_vf_drv.ko
-RUN ln -nfs drivers/legacy/modules/driver/src/host/linux/kernel/drv/octnic/octnic.ko octnic.ko
-RUN ln -nfs drivers/legacy/modules/driver/src/host/linux/kernel/drv/octnic/oct_vf_nic.ko oct_vf_nic.ko
+RUN ln -nfs drivers/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octeon_drv.ko octeon_drv.ko
+RUN ln -nfs drivers/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octvf/octeon_vf_drv.ko octeon_vf_drv.ko
+RUN ln -nfs drivers/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octnic/octnic.ko octnic.ko
+RUN ln -nfs drivers/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octnic/oct_vf_nic.ko oct_vf_nic.ko
 
 # Add the helper tools
 WORKDIR /root/kvc-octeon-host-drv
