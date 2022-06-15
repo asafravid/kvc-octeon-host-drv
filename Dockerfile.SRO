@@ -10,7 +10,7 @@ ARG KMODVER
 ARG KVER
 
 # Expecting path to pcie_ep tar bz2 from release/sources containing the drivers/host path structure
-ARG DRIVER_SOURCES_WGET_SOURCES_TAR_BZ2_NAME
+ARG DRIVER_SOURCES_WGET_TAR_BZ2_PATH
 
 RUN yum -y install git make sudo gcc bzip2 bc net-tools && yum clean all && rm -rf /var/cache/dnf
 
