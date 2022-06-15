@@ -14,12 +14,9 @@ spec:
   set:
     kind: Values
     apiVersion: sro.openshift.io/v1beta1
-    kmodNames: ["octeon-host-drv", "simple-procfs-kmod"]
     buildArgs:
     - name: "DRIVER_SOURCES_WGET_TAR_BZ2_PATH"
-      value: "http://10.5.210.12/pcie_ep_ref.tar.bz2"
-    - name: "KMODVER"
-      value: "SRO"
+      value: "http://10.5.210.12/sources-pcie_ep_octeontx-SDK-11.U.release.tar.bz2"
   driverContainer:
     source:
       git:
