@@ -11,9 +11,9 @@ ARG KVER
 
 # Grab the software from upstream
 # With num_vfs=x in paramters of insmod:
-# RUN git clone "https://aravid:34Helo%2134Helo%21@sj1git1.cavium.com/a/IP/SW/pcie_ep/pcie_ep_octeontx" && cd pcie_ep_octeontx/ && git checkout releasetag-pcie_ep_octeontx-sdk11-release-SDK11.22.05
+# RUN git clone "https://<username>:<password>@sj1git1.cavium.com/a/IP/SW/pcie_ep/pcie_ep_octeontx" && cd pcie_ep_octeontx/ && git checkout releasetag-pcie_ep_octeontx-sdk11-release-SDK11.22.05
 # Without num_vfs=x in paramters of insmod:
-RUN git clone "https://aravid:34Helo%2134Helo%21@sj1git1.cavium.com/a/IP/SW/pcie_ep/pcie_ep_octeontx" && cd pcie_ep_octeontx/ && git checkout pcie_ep_octeontx-sdk11-release
+RUN git clone "https://<username>:<password>@sj1git1.cavium.com/a/IP/SW/pcie_ep/pcie_ep_octeontx" && cd pcie_ep_octeontx/ && git checkout pcie_ep_octeontx-sdk11-release
 WORKDIR pcie_ep_octeontx/host
 
 # Build the module
