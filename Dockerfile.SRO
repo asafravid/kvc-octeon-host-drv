@@ -15,6 +15,7 @@ ARG DRIVER_SOURCES_WGET_SOURCES_TAR_BZ2_NAME
 RUN yum -y install git make sudo gcc bzip2 bc net-tools && yum clean all && rm -rf /var/cache/dnf
 
 # Grab the software from path:
+RUN echo "$DRIVER_SOURCES_WGET_TAR_BZ2_PATH"
 RUN wget -O pcie_ep.tar.bz2 $DRIVER_SOURCES_WGET_TAR_BZ2_PATH
 RUN mkdir drivers && tar -xf pcie_ep.tar.bz2 -C ./drivers/
 RUN cd drivers/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host/ && make && make COMPILEFOR=OCTEON_VF
