@@ -133,9 +133,9 @@ load_kmods() {
             echo "Kernel module ${module} index ${i} - parameters: ${kmod_params_ar[$i]} already loaded, skipping:"
             
             if [ ${kmod_params_ar[$i]} == "yes" ]; then
-                echo "    insmod /build/pcie_ep_octeontx/host/${module}.ko sdp_packet_mode=loop num_vfs=2"
+                echo "    insmod /build/${module}.ko sdp_packet_mode=loop"
             else
-                echo "    insmod /build/pcie_ep_octeontx/host/${module}.ko"
+                echo "    insmod /build/${module}.ko"
             fi
         else
             module=${module//-/_} # replace any dashes with underscore
@@ -143,11 +143,11 @@ load_kmods() {
                         
             # Module by Module:
             if [ ${kmod_params_ar[$i]} == "yes" ]; then
-                echo "Now Invoking: insmod /build/pcie_ep_octeontx/host/${module}.ko sdp_packet_mode=loop"
-                $(insmod /build/pcie_ep_octeontx/host/${module}.ko sdp_packet_mode=loop)
+                echo "Now Invoking: insmod /build/${module}.ko sdp_packet_mode=loop"
+                $(insmod /build/${module}.ko sdp_packet_mode=loop)
             else
-                echo "Now Invoking: insmod /build/pcie_ep_octeontx/host/${module}.ko"
-                $(insmod /build/pcie_ep_octeontx/host/${module}.ko)
+                echo "Now Invoking: insmod /build/${module}.ko"
+                $(insmod /build/${module}.ko)
             fi
         fi
         
