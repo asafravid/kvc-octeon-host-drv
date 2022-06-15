@@ -16,7 +16,7 @@ RUN yum -y install git make sudo gcc bzip2 bc net-tools && yum clean all && rm -
 
 # Grab the software from path:
 RUN echo "Hello World"
-RUN echo "KMODVER: $DRIVER_SOURCES_WGET_TAR_BZ2_PATH"
+RUN echo "KMODVER: $KMODVER"
 RUN echo "DRIVER_SOURCES_WGET_TAR_BZ2_PATH: $DRIVER_SOURCES_WGET_TAR_BZ2_PATH"
 RUN wget -O pcie_ep.tar.bz2 $DRIVER_SOURCES_WGET_TAR_BZ2_PATH
 RUN mkdir drivers && tar -xf pcie_ep.tar.bz2 -C ./drivers/
