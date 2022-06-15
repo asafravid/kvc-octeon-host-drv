@@ -9,16 +9,18 @@ ARG KMODVER
 # Expecting kernel version as an input to the build
 ARG KVER
 
-# Grab the software from upstream
-# With num_vfs=x in paramters of insmod:
-# RUN git clone "https://<username>:<password>@sj1git1.cavium.com/a/IP/SW/pcie_ep/pcie_ep_octeontx" && cd pcie_ep_octeontx/ && git checkout releasetag-pcie_ep_octeontx-sdk11-release-SDK11.22.05
-# Without num_vfs=x in paramters of insmod:
-RUN git clone "https://<username>:<password>@sj1git1.cavium.com/a/IP/SW/pcie_ep/pcie_ep_octeontx" && cd pcie_ep_octeontx/ && git checkout pcie_ep_octeontx-sdk11-release
+# Expecting path to pcie_ep tar bz2 from release/sources containing the drivers/host path structure
+ARG DRIVER_SOURCES_WGET_SOURCES_TAR_BZ2_NAME
+
+RUN yum -y install git make sudo gcc bzip2 bc net-tools && yum clean all && rm -rf /var/cache/dnf
+
+# Grab the software from path:
+RUN wget -O pcie_ep.tar.bz2 $DRIVER_SOURCES_WGET_TAR_BZ2_PATH
+RUN mkdir drivers && tar -xf pcie_ep.tar.bz2 -C ./drivers/
+RUN cd drivers/pcie_ep_ref/pcie_ep_octeontx-sdk11-devel/host/ && make && make COMPILEFOR=OCTEON_VF
 WORKDIR pcie_ep_octeontx/host
 
 # Build the module
-RUN yum -y install git make sudo gcc bzip2 bc net-tools && yum clean all && rm -rf /var/cache/dnf
-RUN make && make COMPILEFOR=OCTEON_VF
 RUN ln -nfs drivers/legacy/modules/driver/src/host/linux/kernel/drv/octeon_drv.ko octeon_drv.ko
 RUN ln -nfs drivers/legacy/modules/driver/src/host/linux/kernel/drv/octvf/octeon_vf_drv.ko octeon_vf_drv.ko
 RUN ln -nfs drivers/legacy/modules/driver/src/host/linux/kernel/drv/octnic/octnic.ko octnic.ko
