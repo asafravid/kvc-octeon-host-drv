@@ -15,10 +15,11 @@ RUN mkdir drivers && tar -xf pcie_ep.tar.bz2 -C ./drivers/
 RUN cd drivers/pcie_ep_octeontx-SDK-11.U.release/host/ && make && make COMPILEFOR=OCTEON_VF
 
 # Create soft-links for the .kos
-RUN ln -nfs drivers/pcie_ep_octeontx-SDK-11.U.release/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octeon_drv.ko octeon_drv.ko
-RUN ln -nfs drivers/pcie_ep_octeontx-SDK-11.U.release/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octvf/octeon_vf_drv.ko octeon_vf_drv.ko
-RUN ln -nfs drivers/pcie_ep_octeontx-SDK-11.U.release/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octnic/octnic.ko octnic.ko
-RUN ln -nfs drivers/pcie_ep_octeontx-SDK-11.U.release/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octnic/oct_vf_nic.ko oct_vf_nic.ko
+# RUN ln -nfs drivers/pcie_ep_octeontx-SDK-11.U.release/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octeon_drv.ko octeon_drv.ko
+# RUN ln -nfs drivers/pcie_ep_octeontx-SDK-11.U.release/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octvf/octeon_vf_drv.ko octeon_vf_drv.ko
+# RUN ln -nfs drivers/pcie_ep_octeontx-SDK-11.U.release/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octnic/octnic.ko octnic.ko
+# RUN ln -nfs drivers/pcie_ep_octeontx-SDK-11.U.release/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octnic/oct_vf_nic.ko oct_vf_nic.ko
+RUN cd drivers/pcie_ep_octeontx-SDK-11.U.release/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv && cp -r *.ko /build/.
 
 # Add the helper tools
 WORKDIR /root/kvc-octeon-host-drv
