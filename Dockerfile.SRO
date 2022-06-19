@@ -19,7 +19,13 @@ RUN cd drivers/pcie_ep_octeontx-SDK-11.U.release/host/ && make && make COMPILEFO
 # RUN ln -nfs drivers/pcie_ep_octeontx-SDK-11.U.release/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octvf/octeon_vf_drv.ko octeon_vf_drv.ko
 # RUN ln -nfs drivers/pcie_ep_octeontx-SDK-11.U.release/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octnic/octnic.ko octnic.ko
 # RUN ln -nfs drivers/pcie_ep_octeontx-SDK-11.U.release/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv/octnic/oct_vf_nic.ko oct_vf_nic.ko
-RUN cd drivers/pcie_ep_octeontx-SDK-11.U.release/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv && cp -r *.ko /build/.
+
+ARG COMMON_PATH=drivers/pcie_ep_octeontx-SDK-11.U.release/host/drivers/legacy/modules/driver/src/host/linux/kernel/drv
+
+RUN ln -nfs $COMMON_PATH/octeon_drv.ko octeon_drv.ko
+RUN ln -nfs $COMMON_PATH/octvf/octeon_vf_drv.ko octeon_vf_drv.ko
+RUN ln -nfs $COMMON_PATH/octnic/octnic.ko octnic.ko
+RUN ln -nfs $COMMON_PATH/octnic/oct_vf_nic.ko oct_vf_nic.ko
 
 # Add the helper tools
 WORKDIR /root/kvc-octeon-host-drv
